@@ -1,15 +1,13 @@
 import './App.css';
-import LearningComponent from './components/LearningComponent';
-import Counter from './components/counter/Counter';
+//import LearningComponent from './components/LearningComponent';
+//import Counter from './components/counter/Counter';
+import TodoApp from './components/todo/TodoApp';
 
 
 function App() {
   return (
     <div className="App">
-    <LearningComponent/>
-    <div>
-      <Counter/>
-    </div>
+    <TodoApp/>
     </div>
   );
 }
