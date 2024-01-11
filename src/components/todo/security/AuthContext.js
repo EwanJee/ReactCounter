@@ -3,6 +3,7 @@ import {useContext} from 'react';
 
 
 
+
 //create a Context
 export const AuthContext = createContext();
 
@@ -21,8 +22,23 @@ export default function AuthProvider({children}){
     //     () => setNumber(number + 1),10000
     // )
 
+    function login(username, password){
+        if(username==='user' && password==='password'){
+            setIsAuthenticated(true);
+            return true;
+        }
+        else{
+            setIsAuthenticated(false);
+            return false;
+        }
+    }
+
+    function logout(){
+        setIsAuthenticated(false);
+    }
+
     return (
-        <AuthContext.Provider value={{number, isAuthenticated, setIsAuthenticated}}>
+        <AuthContext.Provider value={{number, isAuthenticated, setIsAuthenticated, login, logout}}>
             {children}
         </AuthContext.Provider>
     )

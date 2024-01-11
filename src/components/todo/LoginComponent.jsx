@@ -32,18 +32,15 @@ export default function LoginComponent(){
                 </div>
                 <div>
                     <button type="button" name="login"
-                    onClick= {() => {if(username==='user' && password==='password')
-                            {
-                            authContext.setIsAuthenticated(true);
+                    onClick= {() => {
+                        if(authContext.login(username, password)){
                             setIsSuccess(true);
-                            navigate(`/welcome/${username}`); // Used Tick
-                            }
-                            else{
-                                authContext.setIsAuthenticated(false);
-                                setIsSuccess(false);
-                                navigate('/');
-                            }
+                            navigate(`/welcome/${username}`);
                         }
+                        else{
+                            setIsSuccess(false);
+                        }
+                    }
                     }
                     >Login</button>
                 </div>
