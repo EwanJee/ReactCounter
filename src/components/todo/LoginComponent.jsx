@@ -4,14 +4,24 @@ import { useAuth } from './security/AuthContext';
 
 
 export default function LoginComponent(){
-
-    const[username, setUsername] = useState('user');
-    const[password, setPassword] = useState('password');
     const[isSuccess, setIsSuccess] = useState(false);
 
     const navigate = useNavigate();
 
     const authContext = useAuth();
+
+    const[username, setUsername] = useState('user');
+    const[password, setPassword] = useState('password');
+
+    async function handleSubmit(){
+        if(await authContext.login(username, password)){
+            setIsSuccess(true);
+            navigate(`/welcome/${username}`);
+        }
+        else{
+            setIsSuccess(false);
+        }
+    }
 
 
     return (
@@ -33,14 +43,8 @@ export default function LoginComponent(){
                 <div>
                     <button type="button" name="login"
                     onClick= {() => {
-                        if(authContext.login(username, password)){
-                            setIsSuccess(true);
-                            navigate(`/welcome/${username}`);
+                        handleSubmit();
                         }
-                        else{
-                            setIsSuccess(false);
-                        }
-                    }
                     }
                     >Login</button>
                 </div>

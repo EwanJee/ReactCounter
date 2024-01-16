@@ -6,13 +6,17 @@ import axios from 'axios'
 
 
 const apliClient = axios.create({
-    baseURL: 'http://localhost:8080',
+    baseURL: 'http://localhost:8081',
     headers: {
         'Content-Type': 'application/json'
     }
 });
 
-export const retrieveHelloWorldBean = () => apliClient.get('/hello-world-bean');
-
+export const retrieveHelloWorldBean = (token) => apliClient.get(`/say-hello`,
+{
+    headers: {
+        Authorization: token
+    }
+});
 
 export const retrieveHelloName = (username) => apliClient.get(`/hello/${username}`);

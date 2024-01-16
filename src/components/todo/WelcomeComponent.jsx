@@ -2,15 +2,14 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 //import axios from 'axios';
-import { retrieveHelloWorldBean, retrieveHelloName } from './api/HelloWorldApiService';
+import { retrieveHelloWorldBean } from './api/HelloWorldApiService';
+import { Link } from 'react-router-dom';
 
 export default function WelcomeComponent(){
 
     const {username} = useParams();
 
     const[message, setMessage] = useState('loading...');
-
-    console.log(username);
 
     function callAPI(){
         //axios
@@ -26,8 +25,8 @@ export default function WelcomeComponent(){
         // .catch(error => console.log(error))
         // .finally(() => console.log('Finally called'));
 
-        retrieveHelloName('whatever')
-        .then(response => setMessage(response.data.name))
+        retrieveHelloWorldBean()
+        .then(response => setMessage(response.data))
         .catch(error => console.log(error))
         .finally(() => console.log('Finally called'));
     }
@@ -36,7 +35,7 @@ export default function WelcomeComponent(){
         <div className="WelcomeComponent">
             Welcome {username}
             <div>
-                Manage Your todos - <a href="/todos">here</a>
+                Manage Your todos - <Link to="/todos">here</Link>
             </div>
             <div>
                 <button className='btn btn-success' onClick={callAPI}>Call Hello World Rest API</button>
