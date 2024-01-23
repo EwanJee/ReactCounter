@@ -4,12 +4,16 @@ import { useState } from 'react';
 //import axios from 'axios';
 import { retrieveHelloWorldBean } from './api/HelloWorldApiService';
 import { Link } from 'react-router-dom';
+import { useAuth } from './security/AuthContext';
 
 export default function WelcomeComponent(){
 
     const {username} = useParams();
 
     const[message, setMessage] = useState('loading...');
+
+    const authContext = useAuth();
+    const token = authContext.token;
 
     function callAPI(){
         //axios
@@ -25,7 +29,7 @@ export default function WelcomeComponent(){
         // .catch(error => console.log(error))
         // .finally(() => console.log('Finally called'));
 
-        retrieveHelloWorldBean()
+        retrieveHelloWorldBean(token)
         .then(response => setMessage(response.data))
         .catch(error => console.log(error))
         .finally(() => console.log('Finally called'));

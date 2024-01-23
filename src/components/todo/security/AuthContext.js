@@ -1,6 +1,7 @@
 import {createContext, useState} from 'react';
 import {useContext} from 'react';
 import {retrieveHelloWorldBean} from '../api/HelloWorldApiService';
+import { apiClient } from '../api/ApiClient';
 
 
 
@@ -39,6 +40,15 @@ export default function AuthProvider({children}){
             setIsAuthenticated(true);
             setUsername(username);
             setToken(basicToken);
+            
+            apiClient.interceptors.request.use(
+                (config) => {
+                    console.log('interceptor request');
+                    config.headers.Authorization = basicToken;
+                    return config;
+                }
+            )
+
             return true;
         }
         else{
